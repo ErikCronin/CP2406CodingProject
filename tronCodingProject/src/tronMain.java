@@ -1,24 +1,60 @@
+import java.util.Scanner;
+
 public class tronMain {
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         /* Base code for the game will go here, things such as: */
         /* Booting the game, calling to other functions and GUI */
         /* Will receive each player name as they are input from player() function */
         /* Sends winning player's name and jet wall length to leaderboard */
-        /*adding so i can push*/
+        /* Creates grid based on user input */
+
+        /* Grid width creation */
+        int createGridX = createGrid();
+
+        /* Grid height creation */
+        int createGridY = createGrid();
+
+        System.out.println("Your grid size is: " + createGridX + " by " + createGridY);
+    }
+
+    public static int createGrid()
+    {
+        int createGrid;
+        boolean gridBoolean = false;
+        System.out.println("Please input your grid width (Between 500 and 10,000)");
+        Scanner gridInput = new Scanner(System.in);
+        createGrid = gridInput.nextInt();
+
+        /* Grid error check */
+        if(createGrid < 500 || createGrid > 10000)
+        {
+            while(createGrid < 500)
+            {
+                System.out.println("reinput (Between 500 and 10,000)");
+                gridInput = new Scanner(System.in);
+                createGrid = gridInput.nextInt();
+            }
+
+            while(createGrid > 10000)
+            {
+                System.out.println("reinput you dang fool (Between 500 and 10,000)");
+                gridInput = new Scanner(System.in);
+                createGrid = gridInput.nextInt();
+            }
+        }
+        else
+        {}
+
+        return createGrid;
     }
 
     public static void player()
     {
         /* Ask for player name. */
         /* If first player input, how many players? (must be at least 2) */
-        /* Ask for grid size (call to grid function) */
     }
 
-    public static void grid()
-    {
-        /* receives input from player function to create grid */
-    }
 
     public static void leaderboard(String player, int jetLength)
     {
