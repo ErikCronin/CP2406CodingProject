@@ -10,19 +10,20 @@ public class tronMain {
         /* Creates grid based on user input */
 
         /* Grid width creation */
-        int createGridX = createGrid();
+        String gridWidth = "width";
+        int createGridX = createGrid(gridWidth);
 
         /* Grid height creation */
-        int createGridY = createGrid();
+        String gridHeight = "height";
+        int createGridY = createGrid(gridHeight);
 
         System.out.println("Your grid size is: " + createGridX + " by " + createGridY);
     }
 
-    public static int createGrid()
+    public static int createGrid(String widthOrHeight)
     {
         int createGrid;
-        boolean gridBoolean = false;
-        System.out.println("Please input your grid width (Between 500 and 10,000)");
+        System.out.println("Please input your grid " + widthOrHeight + " (Between 500 and 10,000)");
         Scanner gridInput = new Scanner(System.in);
         createGrid = gridInput.nextInt();
 
@@ -31,20 +32,22 @@ public class tronMain {
         {
             while(createGrid < 500)
             {
-                System.out.println("reinput (Between 500 and 10,000)");
+                System.out.println("Sorry, that was too low. Please reinput " + widthOrHeight + " (Between 500 and 10,000)");
                 gridInput = new Scanner(System.in);
                 createGrid = gridInput.nextInt();
             }
 
             while(createGrid > 10000)
             {
-                System.out.println("reinput you dang fool (Between 500 and 10,000)");
+                System.out.println("Sorry, that was too high. Please reinput " + widthOrHeight + " (Between 500 and 10,000)");
                 gridInput = new Scanner(System.in);
                 createGrid = gridInput.nextInt();
             }
         }
         else
-        {}
+        {
+            System.out.println("Thank you!");
+        }
 
         return createGrid;
     }
