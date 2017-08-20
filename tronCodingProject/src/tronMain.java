@@ -1,14 +1,22 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class tronMain {
     public static void main(String[] args)
     {
         /* Base code for the game will go here, things such as: */
-        /* Booting the game, calling to other functions and GUI */
-        /* Will receive each player name as they are input from player() function */
-        /* Sends winning player's name and jet wall length to leaderboard */
-        /* Creates grid based on user input */
 
+        /* Booting the game, calling to other functions and GUI */
+
+        /* Will receive each player name as they are input from player() function */
+        lightCycle();
+        boolean playerBoolean = false;
+        String player = createPlayer();
+        System.out.println("Hello " + player + "!");
+
+        /* Sends winning player's name and jet wall length to leaderboard */
+
+        /* Creates grid based on user input */
         /* Grid width creation */
         String gridWidth = "width";
         int createGridX = createGrid(gridWidth);
@@ -52,9 +60,13 @@ public class tronMain {
         return createGrid;
     }
 
-    public static void player()
+    public static String createPlayer()
     {
         /* Ask for player name. */
+        System.out.println("Please input you're name: ");
+        Scanner nameInput = new Scanner(System.in);
+        return nameInput.nextLine();
+
         /* If first player input, how many players? (must be at least 2) */
     }
 
@@ -69,13 +81,58 @@ public class tronMain {
     {
         /* Must always be facing inwards away from grid */
         /* Given random colour from a selection of 9 (red, green, blue, black, white, orange, pink, yellow, purple) */
+        Random dice = new Random();
+        int number;
+        number = dice.nextInt(8);
+        System.out.println(number + " ");
+        String colour = "";
+        if(number == 0)
+        {
+            colour = "red";
+        }
+
+        else if(number == 1)
+        {
+            colour = "green";
+        }
+
+        else if(number == 2)
+        {
+            colour = "blue";
+        }
+
+        else if(number == 3)
+        {
+            colour = "black";
+        }
+
+        else if(number == 4)
+        {
+            colour = "white";
+        }
+
+        else if(number == 5)
+        {
+            colour = "orange";
+        }
+
+        else if(number == 6)
+        {
+            colour = "pink";
+        }
+
+        else if(number == 7)
+        {
+            colour = "yellow";
+        }
+
+        else if(number == 8)
+        {
+            colour = "purple";
+        }
+
+        System.out.println("Your light cycle colour is: " + colour);
         /* cannot stop once cycle has started, can speed up and slow down */
         /* Lightcycle and jet trail are the same colour */
-    }
-
-    public static void cycleColour()
-    {
-        /* runs a random number generator between 1 and 9 to give an assigned colour to a player */
-        /* must not be able to give the same colour twice */
     }
 }
