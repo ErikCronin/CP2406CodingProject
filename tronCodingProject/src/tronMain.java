@@ -7,9 +7,11 @@ import java.util.Random;
 public class tronMain extends JFrame
 {
     int x, y;
+    int colourGen = lightCycle();
 
     public class AL extends KeyAdapter
     {
+
         public void keyPressed(KeyEvent e)
         {
             int keyCode = e.getKeyCode();
@@ -44,13 +46,48 @@ public class tronMain extends JFrame
     {
         x = 150;
         y = 150;
+        String lcColour = "";
+
+        if(colourGen == 0)
+        {
+            lcColour = "Red";
+        }
+        else if(colourGen == 1)
+        {
+            lcColour = "Green";
+        }
+        else if(colourGen == 2)
+        {
+            lcColour = "Blue";
+        }
+        else if(colourGen == 3)
+        {
+            lcColour = "Black";
+        }
+        else if(colourGen == 4)
+        {
+            lcColour = "White";
+        }
+        else if(colourGen == 5)
+        {
+            lcColour = "Orange";
+        }
+        else if(colourGen == 6)
+        {
+            lcColour = "Pink";
+        }
+        else if(colourGen == 7)
+        {
+            lcColour = "Yellow";
+        }
+        else if(colourGen == 8)
+        {
+            lcColour = "Magenta";
+        }
 
         /* Initial set up done before running the game */
         /* Will receive each player name as they are input from player() function */
         String player = createPlayer();
-
-        /* Gives each player a random colour */
-        String lcColour = lightCycle();
 
         /* Sends winning player's name and jet wall length to leader board */
 
@@ -114,69 +151,59 @@ public class tronMain extends JFrame
         /* If first player input, how many players? (must be at least 2) */
     }
 
-    private static String lightCycle()
+    private static int lightCycle()
     {
         /* Must always be facing inwards away from grid */
         /* Given random colour from a selection of 9 (red, green, blue, black, white, orange, pink, yellow, purple) */
         Random dice = new Random();
         int number;
         number = dice.nextInt(8);
-        String colour = "";
-        if(number == 0)
-        {
-            colour = "red";
-        }
-
-        else if(number == 1)
-        {
-            colour = "green";
-        }
-
-        else if(number == 2)
-        {
-            colour = "blue";
-        }
-
-        else if(number == 3)
-        {
-            colour = "black";
-        }
-
-        else if(number == 4)
-        {
-            colour = "white";
-        }
-
-        else if(number == 5)
-        {
-            colour = "orange";
-        }
-
-        else if(number == 6)
-        {
-            colour = "pink";
-        }
-
-        else if(number == 7)
-        {
-            colour = "yellow";
-        }
-
-        else if(number == 8)
-        {
-            colour = "purple";
-        }
-
-        return colour;
+        return number;
         /* cannot stop once cycle has started, can speed up and slow down */
         /* Light cycle and jet trail are the same colour */
     }
 
     public void paint(Graphics g)
     {
+        if(colourGen == 0)
+        {
+            g.setColor(Color.RED);
+        }
+        else if(colourGen == 1)
+        {
+            g.setColor(Color.GREEN);
+        }
+        else if(colourGen == 2)
+        {
+            g.setColor(Color.BLUE);
+        }
+        else if(colourGen == 3)
+        {
+            g.setColor(Color.BLACK);
+        }
+        else if(colourGen == 4)
+        {
+            g.setColor(Color.WHITE);
+        }
+        else if(colourGen == 5)
+        {
+            g.setColor(Color.ORANGE);
+        }
+        else if(colourGen == 6)
+        {
+            g.setColor(Color.PINK);
+        }
+        else if(colourGen == 7)
+        {
+            g.setColor(Color.YELLOW);
+        }
+        else if(colourGen == 8)
+        {
+            g.setColor(Color.MAGENTA);
+        }
+
         g.fillOval(x, y, 15, 15);
 
-        g.setColor(Color.GREEN);
 
         repaint();
     }
