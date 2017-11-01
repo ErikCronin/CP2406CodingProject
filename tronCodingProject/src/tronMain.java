@@ -1,10 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Random;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
 
-public class tronMain {
-    public static void main(String[] args)
+public class tronMain extends JFrame
+{
+    int x, y;
+
+    public class AL extends KeyAdapter
     {
+        public void keyPressed(KeyEvent e)
+        {
+            int keyCode = e.getKeyCode();
+            if(keyCode == e.VK_A)
+            {
+                x=x-2;
+            }
+
+            if(keyCode == e.VK_D)
+            {
+                x=x+2;
+            }
+
+            if(keyCode == e.VK_W)
+            {
+                y=y-2;
+            }
+
+            if(keyCode == e.VK_S)
+            {
+                y=y+2;
+            }
+        }
+
+        public void keyReleased(KeyEvent e)
+        {
+
+        }
+    }
+
+    public tronMain()
+    {
+        x = 150;
+        y = 150;
+
         /* Initial set up done before running the game */
         /* Will receive each player name as they are input from player() function */
         String player = createPlayer();
@@ -24,17 +64,18 @@ public class tronMain {
 
         /* Startup Menu completion */
         JOptionPane.showMessageDialog(null, "Hello " + player + "!\nYou will have a(n) " +
-                lcColour + " light cycle.\nYour grid size is: " + createGridX + " by " + createGridY,
+                        lcColour + " light cycle.\nYour grid size is: " + createGridX + " by " + createGridY,
                 "Game Setup", JOptionPane.PLAIN_MESSAGE);
 
-        /* Game Start Up */
-        tronWindow game = new tronWindow();
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setSize(createGridX,createGridY);
-        game.setVisible(true);
+        addKeyListener(new AL());
+        setTitle("TRAWN");
+        setSize(createGridX, createGridY);
+        setResizable(false);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private static int createGrid(String widthOrHeight)
+    public static int createGrid(String widthOrHeight)
     {
         int createGrid;
         String gridInput = JOptionPane.showInputDialog(null, "Please enter desired "
@@ -47,7 +88,7 @@ public class tronMain {
             while(createGrid < 500)
             {
                 gridInput = JOptionPane.showInputDialog(null, "Sorry that was too low. " +
-                        "Please reinput " + widthOrHeight + ". (Between 500 and 10,000)",
+                                "Please reinput " + widthOrHeight + ". (Between 500 and 10,000)",
                         "TOO LOW!", JOptionPane.PLAIN_MESSAGE);
                 createGrid = Integer.parseInt(gridInput);
             }
@@ -55,15 +96,11 @@ public class tronMain {
             while(createGrid > 10000)
             {
                 gridInput = JOptionPane.showInputDialog(null, "Sorry that was too high. " +
-                        "Please reinput " + widthOrHeight + ". (Between 500 and 10,000)",
+                                "Please reinput " + widthOrHeight + ". (Between 500 and 10,000)",
                         "TOO HIGH!", JOptionPane.PLAIN_MESSAGE);
                 createGrid = Integer.parseInt(gridInput);
             }
         }
-        else
-        {
-        }
-
         return createGrid;
     }
 
@@ -76,14 +113,6 @@ public class tronMain {
 
         /* If first player input, how many players? (must be at least 2) */
     }
-
-
-    /* private static void leaderBoard(String player, int jetLength)
-    {
-        receives winning players name and jet wall length, and puts it on a leader board.
-        Will store winning player's name and jet wall length from current and previous games
-    }
-    */
 
     private static String lightCycle()
     {
@@ -141,5 +170,19 @@ public class tronMain {
         return colour;
         /* cannot stop once cycle has started, can speed up and slow down */
         /* Light cycle and jet trail are the same colour */
+    }
+
+    public void paint(Graphics g)
+    {
+        g.fillOval(x, y, 15, 15);
+
+        g.setColor(Color.GREEN);
+
+        repaint();
+    }
+
+    public static void main(String[] args)
+    {
+        new tronMain();
     }
 }
