@@ -4,14 +4,15 @@ import java.util.Random;
 public class tronmain
 {
     public static int chosenColour;
+    public static int chosenGridWidth;
+    public static int chosenGridHeight;
     public static void main(String args[])
     {
         //Initial Variable Set-Up
         String player = "";
         String gridWidth = "width";
         String gridHeight = "height";
-        int chosenGridWidth = 0;
-        int chosenGridHeight = 0;
+
         String lcColour = "";
 
         //Input Player Name
@@ -64,8 +65,9 @@ public class tronmain
 
         //Game Set-Up Confirmation
         JOptionPane.showMessageDialog(null, "Hello " + player + "!\nYou will have a(n) " +
-                        lcColour + " light cycle.\nYour grid size is: " + chosenGridWidth + " by " + chosenGridHeight,
-                "Game Setup", JOptionPane.PLAIN_MESSAGE);
+                        lcColour + " light cycle.\nYour grid size is: " + chosenGridWidth + " by " + chosenGridHeight
+                        + "\nUse W, A, S, D to control your light cycle.", "Game Setup",
+                JOptionPane.PLAIN_MESSAGE);
 
         //Initial Game Set Up
         tronbg bike = new tronbg();
@@ -83,6 +85,18 @@ public class tronmain
     {
         int cycleColour = chosenColour;
         return cycleColour;
+    }
+
+    public int gridStartX()
+    {
+        int gridPlaceX = chosenGridWidth;
+        return gridPlaceX;
+    }
+
+    public int gridStartY()
+    {
+        int gridPlaceY = chosenGridHeight;
+        return gridPlaceY;
     }
 
     private static String createPlayer()

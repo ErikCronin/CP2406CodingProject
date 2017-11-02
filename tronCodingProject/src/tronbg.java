@@ -1,13 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class tronbg extends JPanel implements ActionListener, KeyListener
 {
     Timer t = new Timer(3, this);
 
     //location X & Y, Velocity X & Y
-    int locx = 0, locy = 0, velx = 0, vely = 0;
+    tronmain bikePlaceX = new tronmain();
+    tronmain bikePlaceY = new tronmain();
+    int gridWidth = bikePlaceX.gridStartX();
+    int gridHeight = bikePlaceY.gridStartY();
+    int beginX = startSpot(gridWidth);
+    int beginY = startSpot(gridHeight);
+    int locx = beginX, locy = beginY, velx = 0, vely = 0;
 
     public tronbg()
     {
@@ -20,7 +27,9 @@ public class tronbg extends JPanel implements ActionListener, KeyListener
     public void paint(Graphics g)
     {
         tronmain colourSearch = new tronmain();
+
         int cycleColour = colourSearch.tronbgCycleColour();
+
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         if(cycleColour == 0)
@@ -59,14 +68,23 @@ public class tronbg extends JPanel implements ActionListener, KeyListener
         {
             g2.setColor(Color.MAGENTA);
         }
-        g2.fillRect(locx,locy,25,25);
+        g2.fillRect(locx,locy,15, 15);
     }
 
     public void actionPerformed(ActionEvent e)
     {
-        repaint();
-        locx += velx;
-        locy += vely;
+        if(locx <= 0 || locy <= 0)
+        {
+            gameOverMsg();
+        }
+        else if(locx >= (gridWidth - 15) || locy >= (gridHeight - 30))
+        {
+            gameOverMsg();
+        }
+        else
+            repaint();
+            locx += velx;
+            locy += vely;
     }
 
     public void up()
@@ -119,4 +137,20 @@ public class tronbg extends JPanel implements ActionListener, KeyListener
 
     public void keyTyped(KeyEvent e){}
     public void keyReleased(KeyEvent e){}
+
+    public static int startSpot(int bikeRoll)
+    {
+        //Rolls die to assign a random colour to player
+        Random dice = new Random();
+        int number;
+        number = dice.nextInt(bikeRoll);
+        return number;
+    }
+
+    public static void gameOverMsg()
+    {
+        JOptionPane.showMessageDialog(null, "You have died! Please Try Again :)", "GAME OVER",
+                JOptionPane.PLAIN_MESSAGE);
+        System.exit(0);
+    }
 }
