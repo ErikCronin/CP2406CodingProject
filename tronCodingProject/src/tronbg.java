@@ -15,6 +15,8 @@ public class tronbg extends JPanel implements ActionListener, KeyListener
     int beginX = startSpot(gridWidth);
     int beginY = startSpot(gridHeight);
     int locx = beginX, locy = beginY, velx = 0, vely = 0;
+    int winnerScore = 0;
+
 
     public tronbg()
     {
@@ -26,65 +28,78 @@ public class tronbg extends JPanel implements ActionListener, KeyListener
 
     public void paint(Graphics g)
     {
-        tronmain colourSearch = new tronmain();
-
-        int cycleColour = colourSearch.tronbgCycleColour();
-
         super.paint(g);
-        Graphics2D g2 = (Graphics2D) g;
+        tronmain colourSearch = new tronmain();
+        int cycleColour = colourSearch.tronbgCycleColour();
+        Graphics2D cycle = (Graphics2D) g;
+        Graphics2D currentScore = (Graphics2D) g;
+
+        currentScore.drawString("Score: " + Integer.toString(winnerScore),15,15);
+
         if(cycleColour == 0)
         {
-            g2.setColor(Color.RED);
+            cycle.setColor(Color.RED);
         }
         else if(cycleColour == 1)
         {
-            g2.setColor(Color.GREEN);
+            cycle.setColor(Color.GREEN);
         }
         else if(cycleColour == 2)
         {
-            g2.setColor(Color.BLUE);
+            cycle.setColor(Color.BLUE);
         }
         else if(cycleColour == 3)
         {
-            g2.setColor(Color.BLACK);
+            cycle.setColor(Color.BLACK);
         }
         else if(cycleColour == 4)
         {
-            g2.setColor(Color.WHITE);
+            cycle.setColor(Color.WHITE);
         }
         else if(cycleColour == 5)
         {
-            g2.setColor(Color.ORANGE);
+            cycle.setColor(Color.ORANGE);
         }
         else if(cycleColour == 6)
         {
-            g2.setColor(Color.PINK);
+            cycle.setColor(Color.PINK);
         }
         else if(cycleColour == 7)
         {
-            g2.setColor(Color.YELLOW);
+            cycle.setColor(Color.YELLOW);
         }
         else if(cycleColour == 8)
         {
-            g2.setColor(Color.MAGENTA);
+            cycle.setColor(Color.MAGENTA);
         }
-        g2.fillRect(locx,locy,15, 15);
+        cycle.fillRect(locx,locy,15, 15);
+        paintComponent(cycle);
+    }
+
+    public void paintComponent(Graphics p)
+    {
+        Graphics2D trail = (Graphics2D) p;
+        trail.fillRect(beginX,beginY,15,15);
     }
 
     public void actionPerformed(ActionEvent e)
     {
+
         if(locx <= 0 || locy <= 0)
         {
-            gameOverMsg();
+            gameOver(winnerScore);
+            System.exit(0);
         }
         else if(locx >= (gridWidth - 15) || locy >= (gridHeight - 30))
         {
-            gameOverMsg();
+            gameOver(winnerScore);
+            System.exit(0);
         }
         else
             repaint();
             locx += velx;
             locy += vely;
+            winnerScore++;
     }
 
     public void up()
@@ -147,10 +162,9 @@ public class tronbg extends JPanel implements ActionListener, KeyListener
         return number;
     }
 
-    public static void gameOverMsg()
+    public static void gameOver(int score)
     {
-        JOptionPane.showMessageDialog(null, "You have died! Please Try Again :)", "GAME OVER",
+        JOptionPane.showMessageDialog(null, "You have died! Your score was " + score, "GAME OVER",
                 JOptionPane.PLAIN_MESSAGE);
-        System.exit(0);
     }
 }
